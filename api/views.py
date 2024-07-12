@@ -1,16 +1,23 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Artista, Genero
 from .serializers import ArtistaSerializer, GeneroSerializer
 
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 class GeneroView(generics.ListCreateAPIView):
     queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
 
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 class ArtistaView(APIView):
     @staticmethod
     def get(request, pk=None):
