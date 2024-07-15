@@ -16,8 +16,7 @@ class ArtistaSerializer(serializers.Serializer):
     updated_at = serializers.DateTimeField(read_only=True)
     deleted_at = serializers.DateTimeField(read_only=True, allow_null=True)
 
-    @staticmethod
-    def validate_nome(value):
+    def validate_nome(self, value):
         if Artista.objects.filter(nome=value).exists():
             raise serializers.ValidationError("Este nome já está em uso.")
 
