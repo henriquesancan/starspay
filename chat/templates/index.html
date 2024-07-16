@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <h1>Chat</h1>
+        <input type="text" id="nome_sala">
+        <button id="botao">Enviar</button>
+        <script>
+                document.querySelector('#nome_sala').focus();
+
+                document.querySelector('#nome_sala').onkeyup = function (e) {
+                    if (e.keyCode === 13) {
+                        document.querySelector('#botao').click();
+                    }
+                }
+
+                document.querySelector('#botao').onclick = function (e) {
+                    var nome_sala = document.querySelector('#nome_sala').value
+
+                    if (nome_sala != "") {
+                        window.location.pathname = '/chat/' + nome_sala + '/';
+                    }
+                    else {
+                        alert('Você precisa informar o nome da sala.')
+                        document.querySelector('#nome_sala').focus();
+                    }
+                }
+        </script>
+    </body>
+</html>
