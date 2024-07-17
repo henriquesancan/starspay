@@ -1,3 +1,5 @@
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.authentication import TokenAuthentication
@@ -30,6 +32,12 @@ class ArtistaView(APIView):
         else:
             artistas = Artista.objects.all()
             serializer = ArtistaSerializer(artistas, many=True)
+
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)('chat_vendas', {
+            'type': 'chat_message',
+            'message': 'Artistas consultados'
+        })
 
         return Response(serializer.data)
 
