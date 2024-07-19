@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'channels',
+    'drf_yasg',
 
     'api',
     'chat',
